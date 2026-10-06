@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Melodify - A modern responsive JavaScript music player"
+    >
+
+    <title>Melodify - Music Player</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="header">
+
+        <!-- Logo -->
+        <div class="logo">
+            <span class="logo-icon">🎵</span>
+            <span>MELODIFY</span>
+        </div>
+
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+
+            <!-- Search -->
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search songs, artists..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- Add Music -->
+            <button
+                id="addMusicBtn"
+                class="add-music-btn"
+                title="Add Music"
+                aria-label="Add Music"
+            >
+                ➕ Add Music
+            </button>
+
+            <!-- Hidden Music File Input -->
+            <input
+                type="file"
+                id="musicFileInput"
+                accept="audio/*"
+                multiple
+                hidden
+            >
+
+
+            <!-- Theme -->
+            <button
+                id="themeBtn"
+                class="icon-btn"
+                title="Toggle Theme"
+                aria-label="Toggle Theme"
+            >
+                🌙
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-container">
+
+
+        <!-- =====================================
+             MUSIC PLAYER
+        ====================================== -->
+
+        <section class="player-section">
+
+            <!-- Album Artwork -->
+            <div class="album-container">
+
+                <div class="album-glow"></div>
+
+                <img
+                    id="albumArt"
+                    class="album-art"
+                    src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
+                    alt="Album Artwork"
+                >
+
+            </div>
+
+
+            <!-- Song Information -->
+            <div class="song-info">
+
+                <h1 id="songTitle">
+                    Midnight Dreams
+                </h1>
+
+                <p id="artistName">
+                    Aurora Sounds
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 PROGRESS BAR
+            ================================== -->
+
+            <div class="progress-section">
+
+                <span id="currentTime">
+                    0:00
+                </span>
+
+                <input
+                    type="range"
+                    id="progressBar"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step="0.1"
+                    aria-label="Song progress"
+                >
+
+                <span id="duration">
+                    0:00
+                </span>
+
+            </div>
+
+
+            <!-- =================================
+                 MAIN MUSIC CONTROLS
+            ================================== -->
+
+            <div class="main-controls">
+
+                <button
+                    id="shuffleBtn"
+                    class="control-btn"
+                    title="Shuffle"
+                    aria-label="Shuffle"
+                >
+                    🔀
+                </button>
+
+
+                <button
+                    id="previousBtn"
+                    class="control-btn"
+                    title="Previous Song"
+                    aria-label="Previous Song"
+                >
+                    ⏮
+                </button>
+
+
+                <button
+                    id="playBtn"
+                    class="play-btn"
+                    title="Play"
+                    aria-label="Play or Pause"
+                >
+                    ▶
+                </button>
+
+
+                <button
+                    id="nextBtn"
+                    class="control-btn"
+                    title="Next Song"
+                    aria-label="Next Song"
+                >
+                    ⏭
+                </button>
+
+
+                <button
+                    id="repeatBtn"
+                    class="control-btn"
+                    title="Repeat"
+                    aria-label="Repeat"
+                >
+                    🔁
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 VOLUME CONTROL
+            ================================== -->
+
+            <div class="volume-section">
+
+                <button
+                    id="muteBtn"
+                    class="volume-btn"
+                    title="Mute / Unmute"
+                    aria-label="Mute or Unmute"
+                >
+                    🔊
+                </button>
+
+                <input
+                    type="range"
+                    id="volumeBar"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.8"
+                    aria-label="Volume"
+                >
+
+            </div>
+
+
+            <!-- =================================
+                 FAVORITE BUTTON
+            ================================== -->
+
+            <button
+                id="favoriteBtn"
+                class="favorite-btn"
+                title="Add to Favorites"
+            >
+                ♡ Add to Favorites
+            </button>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PLAYLIST SECTION
+        ====================================== -->
+
+        <section class="playlist-section">
+
+            <div class="playlist-header">
+
+                <div>
+
+                    <h2>
+                        Your Playlist
+                    </h2>
+
+                    <p id="playlistCount">
+                        4 Songs
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="autoplayBtn"
+                    class="autoplay-btn"
+                    title="Toggle Autoplay"
+                >
+                    Autoplay: OFF
+                </button>
+
+            </div>
+
+
+            <!-- Playlist -->
+
+            <div
+                id="playlist"
+                class="playlist"
+            >
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================
+         TOAST NOTIFICATION
+    ========================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="alert"
+        aria-live="polite"
+    >
+        Song added to favorites
+    </div>
+
+
+
+    <!-- =========================================
+         AUDIO PLAYER
+    ========================================== -->
+
+    <audio
+        id="audioPlayer"
+        preload="metadata"
+    >
+    </audio>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
